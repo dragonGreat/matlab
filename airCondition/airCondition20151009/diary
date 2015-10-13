@@ -1,0 +1,120 @@
+demos
+close all
+clear
+clc
+ex17_2
+frist
+{Error using <a href="matlab:helpUtils.errorDocCallback('str2num', 'D:\install\matlab\toolbox\matlab\strfun\str2num.m', 33)" style="font-weight:bold">str2num</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\strfun\str2num.m',33,0)">line 33</a>)
+Requires string or character array input.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist>edit1_Callback', 'E:\matlab\UIdesign\frist.m', 84)" style="font-weight:bold">frist>edit1_Callback</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',84,0)">line 84</a>)
+input = str2num(get(hObject,'String'));
+
+Error in <a href="matlab:helpUtils.errorDocCallback('gui_mainfcn', 'D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m', 96)" style="font-weight:bold">gui_mainfcn</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m',96,0)">line 96</a>)
+        feval(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist', 'E:\matlab\UIdesign\frist.m', 42)" style="font-weight:bold">frist</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',42,0)">line 42</a>)
+    gui_mainfcn(gui_State, varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('@(hObject,eventdata)frist(''edit1_Callback'',hObject,eventdata,guidata(hObject))', '', 0)" style="font-weight:bold">@(hObject,eventdata)frist('edit1_Callback',hObject,eventdata,guidata(hObject))</a>
+
+} 
+Error while evaluating uicontrol Callback
+
+{Error using <a href="matlab:helpUtils.errorDocCallback('str2num', 'D:\install\matlab\toolbox\matlab\strfun\str2num.m', 33)" style="font-weight:bold">str2num</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\strfun\str2num.m',33,0)">line 33</a>)
+Requires string or character array input.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist>edit1_Callback', 'E:\matlab\UIdesign\frist.m', 84)" style="font-weight:bold">frist>edit1_Callback</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',84,0)">line 84</a>)
+input = str2num(get(hObject,'String'));
+
+Error in <a href="matlab:helpUtils.errorDocCallback('gui_mainfcn', 'D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m', 96)" style="font-weight:bold">gui_mainfcn</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m',96,0)">line 96</a>)
+        feval(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist', 'E:\matlab\UIdesign\frist.m', 42)" style="font-weight:bold">frist</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',42,0)">line 42</a>)
+    gui_mainfcn(gui_State, varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('@(hObject,eventdata)frist(''edit1_Callback'',hObject,eventdata,guidata(hObject))', '', 0)" style="font-weight:bold">@(hObject,eventdata)frist('edit1_Callback',hObject,eventdata,guidata(hObject))</a>
+
+} 
+Error while evaluating uicontrol Callback
+
+{Error using <a href="matlab:helpUtils.errorDocCallback('str2num', 'D:\install\matlab\toolbox\matlab\strfun\str2num.m', 33)" style="font-weight:bold">str2num</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\strfun\str2num.m',33,0)">line 33</a>)
+Requires string or character array input.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist>edit1_Callback', 'E:\matlab\UIdesign\frist.m', 84)" style="font-weight:bold">frist>edit1_Callback</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',84,0)">line 84</a>)
+input = str2num(get(hObject,'String'));
+
+Error in <a href="matlab:helpUtils.errorDocCallback('gui_mainfcn', 'D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m', 96)" style="font-weight:bold">gui_mainfcn</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m',96,0)">line 96</a>)
+        feval(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist', 'E:\matlab\UIdesign\frist.m', 42)" style="font-weight:bold">frist</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',42,0)">line 42</a>)
+    gui_mainfcn(gui_State, varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('@(hObject,eventdata)frist(''edit1_Callback'',hObject,eventdata,guidata(hObject))', '', 0)" style="font-weight:bold">@(hObject,eventdata)frist('edit1_Callback',hObject,eventdata,guidata(hObject))</a>
+
+} 
+Error while evaluating uicontrol Callback
+
+frist
+{Error using <a href="matlab:helpUtils.errorDocCallback('str2num', 'D:\install\matlab\toolbox\matlab\strfun\str2num.m', 33)" style="font-weight:bold">str2num</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\strfun\str2num.m',33,0)">line 33</a>)
+Requires string or character array input.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist>edit1_Callback', 'E:\matlab\UIdesign\frist.m', 84)" style="font-weight:bold">frist>edit1_Callback</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',84,0)">line 84</a>)
+input = str2num(get(hObject,'String'));
+
+Error in <a href="matlab:helpUtils.errorDocCallback('gui_mainfcn', 'D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m', 96)" style="font-weight:bold">gui_mainfcn</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m',96,0)">line 96</a>)
+        feval(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist', 'E:\matlab\UIdesign\frist.m', 42)" style="font-weight:bold">frist</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',42,0)">line 42</a>)
+    gui_mainfcn(gui_State, varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('@(hObject,eventdata)frist(''edit1_Callback'',hObject,eventdata,guidata(hObject))', '', 0)" style="font-weight:bold">@(hObject,eventdata)frist('edit1_Callback',hObject,eventdata,guidata(hObject))</a>
+
+} 
+Error while evaluating uicontrol Callback
+
+{Error using <a href="matlab:helpUtils.errorDocCallback('str2num', 'D:\install\matlab\toolbox\matlab\strfun\str2num.m', 33)" style="font-weight:bold">str2num</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\strfun\str2num.m',33,0)">line 33</a>)
+Requires string or character array input.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist>edit2_Callback', 'E:\matlab\UIdesign\frist.m', 112)" style="font-weight:bold">frist>edit2_Callback</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',112,0)">line 112</a>)
+input = str2num(get(hObject,'String'));
+
+Error in <a href="matlab:helpUtils.errorDocCallback('gui_mainfcn', 'D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m', 96)" style="font-weight:bold">gui_mainfcn</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m',96,0)">line 96</a>)
+        feval(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist', 'E:\matlab\UIdesign\frist.m', 42)" style="font-weight:bold">frist</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',42,0)">line 42</a>)
+    gui_mainfcn(gui_State, varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('@(hObject,eventdata)frist(''edit2_Callback'',hObject,eventdata,guidata(hObject))', '', 0)" style="font-weight:bold">@(hObject,eventdata)frist('edit2_Callback',hObject,eventdata,guidata(hObject))</a>
+
+} 
+Error while evaluating uicontrol Callback
+
+{Error using <a href="matlab:helpUtils.errorDocCallback('str2num', 'D:\install\matlab\toolbox\matlab\strfun\str2num.m', 33)" style="font-weight:bold">str2num</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\strfun\str2num.m',33,0)">line 33</a>)
+Requires string or character array input.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist>pushbutton1_Callback', 'E:\matlab\UIdesign\frist.m', 138)" style="font-weight:bold">frist>pushbutton1_Callback</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',138,0)">line 138</a>)
+total = str2num(a)+str2num(b);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('gui_mainfcn', 'D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m', 96)" style="font-weight:bold">gui_mainfcn</a> (<a href="matlab: opentoline('D:\install\matlab\toolbox\matlab\guide\gui_mainfcn.m',96,0)">line 96</a>)
+        feval(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('frist', 'E:\matlab\UIdesign\frist.m', 42)" style="font-weight:bold">frist</a> (<a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',42,0)">line 42</a>)
+    gui_mainfcn(gui_State, varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('@(hObject,eventdata)frist(''pushbutton1_Callback'',hObject,eventdata,guidata(hObject))', '', 0)" style="font-weight:bold">@(hObject,eventdata)frist('pushbutton1_Callback',hObject,eventdata,guidata(hObject))</a>
+
+} 
+Error while evaluating uicontrol Callback
+
+frist
+{Error: <a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',149,1)">File: frist.m Line: 149 Column: 1
+</a>The function "pushbutton1_Callback" was closed with an 'end', but at least one other function definition was
+not. To avoid confusion when using nested functions, it is illegal to use both conventions in the same file.
+} 
+frist
+{Error: <a href="matlab: opentoline('E:\matlab\UIdesign\frist.m',142,4)">File: frist.m Line: 142 Column: 4
+</a>The function "pushbutton1_Callback" was closed with an 'end', but at least one other function definition was
+not. To avoid confusion when using nested functions, it is illegal to use both conventions in the same file.
+} 
+frist
