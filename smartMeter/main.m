@@ -1,115 +1,131 @@
 close all;
 clear;
 clc;
-fprintf('lets go ! ... ...\n');
-%allTestSample=3;%测试总样本数（总用电器数）
-isPlot=0;%是否画图
-fan=1;%画图标号，必须要,用来区分不同的类别
-fanStep=3;%fan一共测试了几步数据，这里是3步
-fanDataGetNum=2;%fan中每步数据中有几组数据
-miphone=2;
-miphoneStep=2;
-miphoneDataGetNum=1;
-monitor=3;
-monitorStep=2;
-monitorDataGetNum=1;
-bus=4;
-busStep=2;
-busDataGetNum=1;
+fprintf('main  function lets go ! ... ...\n');
+isGetDataToMat=0;%0不更新all.mat中数据，1再次更新all.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
+getDataToMat(isGetDataToMat);
+allData=load('all.mat');
+bus=allData.buscell;%获取电扇每步数据
+x=2;
+figure(2)
 
-%sampleFeatureNum=4;%每个样本所包含的特征数（提取的用电器特征）
-pAddPf=1;%为0时只画一副图，为1时画多个图 ，默认1
+x1=length(bus{1,x}{1,1});
+y1=bus{1,x}{1,1};
+fs=1;
+y=fft(y1);
+mag=abs(y);
+f=(0:length(y)-1)'*fs/length(y);%进行对应的频率转换
+plot(f,mag)
 
-%文件的命名规则  originalSample+classNum+charcter+numStep+num
-%.xlsx=原始数据类型+类别名+特征名+第num步测试+该步测试了num组数据
- fanNum=1;
- fancell=cell(1,fanStep*fanDataGetNum);
-for i=1:fanStep%read fan data
-     for j=1:fanDataGetNum
-           pathP=['\sourceData\fan',num2str(i),'P',num2str(j),'.xlsx'];
-           pathPF=['\sourceData\fan',num2str(i),'PF',num2str(j),'.xlsx'];
-           pathU=['\sourceData\fan',num2str(i),'U',num2str(j),'.xlsx'];
-           pathI=['\sourceData\fan',num2str(i),'I',num2str(j),'.xlsx'];
-           
-           [dataP,dataNumP]= readExcelData(pathP);
-           [dataPF,dataNumPF]= readExcelData(pathPF);
-           [dataU,dataNumU]= readExcelData(pathU);
-           [dataI,dataNumI]= readExcelData(pathI);
-           
-        fancell{fanNum}={dataP,dataPF,dataU,dataI};
-        fanNum=fanNum+1;
-          if(isPlot)  
-                     plotMulFigureSmartMeter(pAddPf,dataP,dataNumP,dataPF,dataNumPF,dataU,dataNumU,dataI,dataNumI,fancell*100+i*10+j);   
-          end
-     end
-end
-fprintf('fan data plot over!\n');
+figure(1);
+    subplot(2,3,1);
+        plot(1:length(bus{1,x}{1,1}),bus{1,x}{1,1}/10,'r');
+                title('Power');
+                xlabel('number');
+                ylabel('value');
+                legend('P','location','Best');
+    subplot(2,3,2);
+        plot(1:length(bus{1,x}{1,2}),bus{1,x}{1,2}/1000,'b');
+                title('PowerFactor');
+                xlabel('number');
+                ylabel('value');
+                legend('PF','location','Best');
+                
+    subplot(2,3,3);
+        plot(1:length(bus{1,x}{1,3}),bus{1,x}{1,3}/10,'g');
+                title('voltage');
+                xlabel('number');
+                ylabel('value');
+                legend('U','location','Best');
+               
+    subplot(2,3,4);
+        boxplot(bus{1,x}{1,3}/10);
+        title('voltage box');
 
-miphoneNum=1;
-miphonecell=cell(1,miphoneStep*miphoneDataGetNum);
-for i=1:miphoneStep%read miphone data
-     for j=1:miphoneDataGetNum
-           pathP=['\sourceData\miphone',num2str(i),'P',num2str(j),'.xlsx'];
-           pathPF=['\sourceData\miphone',num2str(i),'PF',num2str(j),'.xlsx'];
-           pathU=['\sourceData\miphone',num2str(i),'U',num2str(j),'.xlsx'];
-           pathI=['\sourceData\miphone',num2str(i),'I',num2str(j),'.xlsx'];
-           
-           [dataP,dataNumP]= readExcelData(pathP);
-           [dataPF,dataNumPF]= readExcelData(pathPF);
-           [dataU,dataNumU]= readExcelData(pathU);
-           [dataI,dataNumI]= readExcelData(pathI);
-          miphonecell{miphoneNum}={dataP,dataPF,dataU,dataI};
-          miphoneNum=miphoneNum+1;
-           if(isPlot)  
-                    plotMulFigureSmartMeter(pAddPf,dataP,dataNumP,dataPF,dataNumPF,dataU,dataNumU,dataI,dataNumI,miphonecell*100+i*10+j);
-           end
-     end
-end
- fprintf('miphone data plot over!\n');
- 
-monitorNum=1;
-monitorcell=cell(1,monitorStep*monitorDataGetNum);
- for i=1:monitorStep%read monitor data
-     for j=1:miphoneDataGetNum
-           pathP=['\sourceData\monitor',num2str(i),'P',num2str(j),'.xlsx'];
-           pathPF=['\sourceData\monitor',num2str(i),'PF',num2str(j),'.xlsx'];
-           pathU=['\sourceData\monitor',num2str(i),'U',num2str(j),'.xlsx'];
-           pathI=['\sourceData\monitor',num2str(i),'I',num2str(j),'.xlsx'];
-           
-           [dataP,dataNumP]= readExcelData(pathP);
-           [dataPF,dataNumPF]= readExcelData(pathPF);
-           [dataU,dataNumU]= readExcelData(pathU);
-           [dataI,dataNumI]= readExcelData(pathI);
-           monitorcell{monitorNum}={dataP,dataPF,dataU,dataI};
-           monitorNum=monitorNum+1;
-           if(isPlot)  
-                    plotMulFigureSmartMeter(pAddPf,dataP,dataNumP,dataPF,dataNumPF,dataU,dataNumU,dataI,dataNumI,monitorcell*100+i*10+j);
-           end
-     end
-end
- fprintf('minitor data plot over!\n');
- 
-busNum=1;
-buscell=cell(1,busStep*busDataGetNum);
- for i=1:busStep%read bus data
-     for j=1:busDataGetNum
-           pathP=['\sourceData\bus',num2str(i),'P',num2str(j),'.xlsx'];
-           pathPF=['\sourceData\bus',num2str(i),'PF',num2str(j),'.xlsx'];
-           pathU=['\sourceData\bus',num2str(i),'U',num2str(j),'.xlsx'];
-           pathI=['\sourceData\bus',num2str(i),'I',num2str(j),'.xlsx'];
-           
-           [dataP,dataNumP]= readExcelData(pathP);
-           [dataPF,dataNumPF]= readExcelData(pathPF);
-           [dataU,dataNumU]= readExcelData(pathU);
-           [dataI,dataNumI]= readExcelData(pathI);
-           buscell{busNum}={dataP,dataPF,dataU,dataI};
-           busNum=busNum+1;
-          if(isPlot)
-                    plotMulFigureSmartMeter(pAddPf,dataP,dataNumP,dataPF,dataNumPF,dataU,dataNumU,dataI,dataNumI,buscell*100+i*10+j);
-          end
-     end
-end
-fprintf('bus data plot over!\n');
- save all.mat fancell miphonecell monitorcell buscell
-fprintf('over!\n');
+                
+     subplot(2,3,5);
+        plot(1:length(bus{1,x}{1,4}),bus{1,x}{1,4}/1000,'k');
+                title('current');
+                xlabel('number');
+                ylabel('value');
+                legend('I','location','Best');             
+                
+     subplot(2,3,6);
+        plot(1:length(bus{1,x}{1,1}),bus{1,x}{1,1},'r',1:length(bus{1,x}{1,2}),bus{1,x}{1,2},'b',1:length(bus{1,x}{1,3}),bus{1,x}{1,3},'k',1:length(bus{1,x}{1,4}),bus{1,x}{1,4},'g');
+                title('all(P,PF,U,I)');
+                xlabel('number');
+                ylabel('value');
+                legend('P','PF','U','I','location','Best');    
+       
+
+fprintf('main function fun over!\n');
+
+
+
+% 　 y         黄色           ·             点线
+%      m         粉红           ○             圈线
+%      c         亮蓝           ×             ×线
+%      r         大红           ＋             ＋字线 
+%      g         绿色           －             实线
+%      b         蓝色           *              星形线
+%      w         白色           ：             虚线
+%      k         黑色         －.
+%                             　 --            点划线
+
+
+
+% % % % % % % *********************************************************************************************% % %
+% fan=allData.fancell;%获取电扇每步数据
+% x=6;%x=1-6
+% figure(1);
+%     subplot(2,3,1);
+%         plot(1:length(fan{1,x}{1,1}),fan{1,x}{1,1},'r');
+%                 title('Power');
+%                 xlabel('number');
+%                 ylabel('value');
+%                 legend('P','location','Best');
+%     subplot(2,3,2);
+%         plot(1:length(fan{1,x}{1,2}),fan{1,x}{1,2},'b');
+%                 title('PowerFactor');
+%                 xlabel('number');
+%                 ylabel('value');
+%                 legend('PF','location','Best');
+%                 
+%     subplot(2,3,3);
+%         plot(1:length(fan{1,x}{1,3}),fan{1,x}{1,3},'g');
+%                 title('voltage');
+%                 xlabel('number');
+%                 ylabel('value');
+%                 legend('U','location','Best');
+%                
+%     subplot(2,3,4);
+%         boxplot(fan{1,x}{1,3});
+%         title('voltage box');
+% 
+%                 
+%      subplot(2,3,5);
+%         plot(1:length(fan{1,x}{1,4}),fan{1,x}{1,4},'k');
+%                 title('current');
+%                 xlabel('number');
+%                 ylabel('value');
+%                 legend('I','location','Best');             
+%                 
+%      subplot(2,3,6);
+%         plot(1:length(fan{1,x}{1,1}),fan{1,x}{1,1},'r',1:length(fan{1,x}{1,2}),fan{1,x}{1,2},'b',1:length(fan{1,x}{1,3}),fan{1,x}{1,3},'k',1:length(fan{1,x}{1,4}),fan{1,x}{1,4},'g');
+%                 title('all(P,PF,U,I)');
+%                 xlabel('number');
+%                 ylabel('value');
+%                 legend('P','PF','U','I','location','Best');   
+% % % % % % % *********************************************************************************************% % %
+%%功率谱
+% figure(2)
+% 
+% x1=length(bus{1,x}{1,1});
+% y1=bus{1,x}{1,1};
+% fs=1;
+% y=fft(y1);
+% mag=abs(y);
+% f=(0:length(y)-1)'*fs/length(y);%进行对应的频率转换
+% plot(f,mag)
+% % % % % % % *********************************************************************************************% % %
 
