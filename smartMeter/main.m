@@ -7,16 +7,6 @@ getDataToMat(isGetDataToMat);
 allData=load('all.mat');
 bus=allData.buscell;%获取电扇每步数据
 x=2;
-figure(2)
-
-x1=length(bus{1,x}{1,1});
-y1=bus{1,x}{1,1};
-fs=1;
-y=fft(y1);
-mag=abs(y);
-f=(0:length(y)-1)'*fs/length(y);%进行对应的频率转换
-plot(f,mag)
-
 figure(1);
     subplot(2,3,1);
         plot(1:length(bus{1,x}{1,1}),bus{1,x}{1,1}/10,'r');
