@@ -2,6 +2,7 @@ close all;
 clear;
 clc;
 fprintf('main  function lets go ! ... ...\n');
+wipeOutData=0;
 isGetDataToMat=0;%0不更新all.mat中数据，1再次更新all.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
 getDataToMat(isGetDataToMat);%将数据从excel中转到mat中
 allData=load('all.mat');
@@ -10,15 +11,9 @@ miphone=allData.miphonecell;%获取手机每步数据
 monitor=allData.monitorcell;%获取显示器每步数据
 bus=allData.buscell;%获取总线每步数据
 
-fanP=bus{1,2}{1,1};
-fanPF=bus{1,2}{1,2};
-A=[fanP,fanPF];
-figure(1)
-hist(fan{1,1}{1,1},30);
-figure(2)
-hist(fan{1,1}{1,2},30);
-figure(3)
-mesh(A)
+[fanAve,fanVar,fanMax,fanMin] = getTheDataFeature(allData.fancell{1,1},wipeOutData);
+
+fprintf('getdata:%f,%f,%f,%f\n',fanAve,fanVar,fanMax,fanMin);
 
               
 
