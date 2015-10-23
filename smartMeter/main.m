@@ -10,12 +10,20 @@ fan=allData.fancell;%获取电扇每步数据
 miphone=allData.miphonecell;%获取手机每步数据
 monitor=allData.monitorcell;%获取显示器每步数据
 bus=allData.buscell;%获取总线每步数据
-
 [fanAve,fanVar,fanMax,fanMin] = getTheDataFeature(allData.fancell{1,1},wipeOutData);
-
 fprintf('getdata:%f,%f,%f,%f\n',fanAve,fanVar,fanMax,fanMin);
 
-              
+recognize=bus{1,2}{1,2};
+for i=1:70
+aa(i)=recognize(i+2,1)-recognize(i,1);
+end
+for i=1:71
+bb(i)=recognize(i,1)-recognize(i+2,1);
+end
+figure(1);
+plot(aa)
+figure(2);
+plot(bb)
 
 fprintf('main function fun over!\n');
 
