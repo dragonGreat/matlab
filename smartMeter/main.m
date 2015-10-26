@@ -1,3 +1,4 @@
+%%1.数据获取顺序 'P','PF','U','I'
 close all;
 clear;
 clc;
@@ -13,17 +14,131 @@ bus=allData.buscell;%获取总线每步数据
 [fanAve,fanVar,fanMax,fanMin] = getTheDataFeature(allData.fancell{1,1},wipeOutData);
 fprintf('getdata:%f,%f,%f,%f\n',fanAve,fanVar,fanMax,fanMin);
 
-recognize=bus{1,2}{1,2};
-for i=1:70
-aa(i)=recognize(i+2,1)-recognize(i,1);
+busP_ori=bus{1,1}{1,1};
+busPF_ori=bus{1,1}{1,2};
+busU_ori=bus{1,1}{1,3}/10;
+busI_ori=bus{1,1}{1,4};
+Plength=length(busP_ori);%数据个数或是相对时间
+busP=[0;busP_ori];%功率初始行补0
+busPF=[1;busPF_ori];%功率因子初始行补1
+busU=[0;busU_ori];%电压初始行补220
+busI=[0;busI_ori];%电流初始行补0
+
+t0=1;%初始时间
+t1=1;%下一个状态的时间
+threshold_value=40;%阈值
+busP_threshold_P=threshold_value;%正向阈值
+busP_threshold_N=-threshold_value;%反向阈值
+statusValue=1;
+equipmentNum=0;%总线上所挂载的设备数
+ fprintf('\n');
+for i=1:Plength
+      busResultP(i)=busP(i+1,1)-busP(i,1);
+      busResultPF(i)=busPF(i+1,1)-busPF(i,1);
+      busResultU(i)=busU(i+1,1)-busU(i,1);
+      busResultI(i)=busI(i+1,1)-busI(i,1);
+      
+      if(busResultP(i)>busP_threshold_P)
+          equipmentNum=equipmentNum+1;
+          t1=i;
+          P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
+          PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
+          U_recog(statusValue)=mean(busU_ori(t0:t1-1,1));
+          I_recog(statusValue)=mean(busI_ori(t0:t1-1,1));
+          
+          [busP_max(statusValue),~]=max(busP_ori(t0:t1-1,1));
+          [busPF_max(statusValue),~]=max(busPF_ori(t0:t1-1,1));
+          [busI_max(statusValue),~]=max(busI_ori(t0:t1-1,1));
+          
+          [busP_min(statusValue),~]=min(busP_ori(t0:t1-1,1));
+          [busPF_min(statusValue),~]=min(busPF_ori(t0:t1-1,1));
+          [busI_min(statusValue),~]=min(busI_ori(t0:t1-1,1));
+          
+          fprintf('busResult=%f,  i=%d,  equipmentNum=%d\n',busResultP(i),i,equipmentNum);
+          fprintf('P_recog=%f，PF_recog=%f,U_recog=%f，I_recog=%f\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
+          statusValue=statusValue+1;
+          t0=t1;
+      end
+      
+      if(busResultP(i)<busP_threshold_N)
+          equipmentNum=equipmentNum-1;
+          t1=i;
+          P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
+          PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
+          U_recog(statusValue)=mean(busU_ori(t0:t1-1,1));
+          I_recog(statusValue)=mean(busI_ori(t0:t1-1,1));
+          
+           [busP_max(statusValue),~]=max(busP_ori(t0:t1-1,1));
+          [busPF_max(statusValue),~]=max(busPF_ori(t0:t1-1,1));
+          [busI_max(statusValue),~]=max(busI_ori(t0:t1-1,1));
+          
+          [busP_min(statusValue),~]=min(busP_ori(t0:t1-1,1));
+          [busPF_min(statusValue),~]=min(busPF_ori(t0:t1-1,1));
+          [busI_min(statusValue),~]=min(busI_ori(t0:t1-1,1));
+          fprintf('busResult=%f,  i=%d,  equipmentNum=%d\n',busResultP(i),i,equipmentNum);
+          fprintf('P_recog=%f，PF_recog=%f,U_recog=%f，I_recog=%f\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
+          t0=t1;
+          statusValue=statusValue+1;
+      end
+      
+      if(i==Plength)
+           equipmentNum=equipmentNum-1;
+           t1=i;
+           P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
+           PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
+           U_recog(statusValue)=mean(busU_ori(t0:t1-1,1));
+           I_recog(statusValue)=mean(busI_ori(t0:t1-1,1));
+           
+          [busP_max(statusValue),~]=max(busP_ori(t0:t1-1,1));
+          [busPF_max(statusValue),~]=max(busPF_ori(t0:t1-1,1));
+          [busI_max(statusValue),~]=max(busI_ori(t0:t1-1,1));
+          
+          [busP_min(statusValue),~]=min(busP_ori(t0:t1-1,1));
+          [busPF_min(statusValue),~]=min(busPF_ori(t0:t1-1,1));
+          [busI_min(statusValue),~]=min(busI_ori(t0:t1-1,1));
+          
+           fprintf('busResult=%f,  i=%d,  equipmentNum=%d\n',busResultP(i),i,equipmentNum);
+           fprintf('P_recog=%f，PF_recog=%f,U_recog=%f，I_recog=%f\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
+      end
 end
-for i=1:71
-bb(i)=recognize(i,1)-recognize(i+2,1);
-end
+[U_max,~]=max(busU_ori);
+[U_min,~]=min(busU_ori);
+fprintf('状态改变数：statusValue=%d,电压最大值=%fV，最小值=%fV，(最大值-最小值)=%fV\n',statusValue,U_max,U_min,U_max-U_min);  
+ fprintf('\n');
+
+%[y,ps] = mapminmax(x,0,1);
+%y2 = mapminmax('apply',x2,PS)
 figure(1);
-plot(aa)
-figure(2);
-plot(bb)
+[y1,ps] = mapminmax(busResultP,0,1);
+plot(y1,'r');
+hold on;
+y2 = mapminmax('apply',busResultPF,ps);
+plot(y2,'b');
+y3 = mapminmax('apply',busResultU,ps);
+plot(y3,'g');
+y4 = mapminmax('apply',busResultI,ps);
+plot(y4,'k');
+hold off;
+ title('P,PF,U,I各数据在状态切换过程中的作用');
+ legend('P','PF','U','I','location','Best');
+ 
+ figure(2);
+r1 = mapminmax('apply',busP_max-busP_min,ps);
+plot(r1,'r');
+hold on;
+ r2 = mapminmax('apply',busPF_max-busPF_min,ps);
+ plot(r2,'b');
+ r3 = mapminmax('apply',busI_max-busI_min,ps);
+ plot(r3,'k');
+ hold off;
+ legend('P','PF','I','location','Best');
+ title('P,PF,I中的最大值和最小值，各数据在状态切换过程中的作用');
+ 
+figure(3);
+plot(P_recog,PF_recog,'b*',PF_recog,P_recog,'r*')
+ title('bus');
+xlabel('power/W');
+ylabel('PF');
 
 fprintf('main function fun over!\n');
 
