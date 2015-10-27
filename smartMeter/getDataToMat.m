@@ -1,5 +1,5 @@
 function getDataToMat(flag )
-
+%第一种数据提取方式
 fprintf('go getDataToMat function!\n');
 
 isPlot=0;%是否画图
