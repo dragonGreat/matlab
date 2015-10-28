@@ -14,14 +14,14 @@ bus=allData.buscell;%获取总线每步数据
 [fanAve,fanVar,fanMax,fanMin] = getTheDataFeature(allData.fancell{1,1},wipeOutData);
 fprintf('getdata:%f,%f,%f,%f\n',fanAve,fanVar,fanMax,fanMin);
 
-busP_ori=bus{1,1}{1,1};
-busPF_ori=bus{1,1}{1,2};
-busU_ori=bus{1,1}{1,3}/10;
-busI_ori=bus{1,1}{1,4};
+busP_ori=bus{1,1}{1,1};%原始功率数据
+busPF_ori=bus{1,1}{1,2};%原始功率因子数据
+busU_ori=bus{1,1}{1,3}/10;%原始电压
+busI_ori=bus{1,1}{1,4};%原始电流
 Plength=length(busP_ori);%数据个数或是相对时间
 busP=[0;busP_ori];%功率初始行补0
 busPF=[1;busPF_ori];%功率因子初始行补1
-busU=[0;busU_ori];%电压初始行补220
+busU=[220;busU_ori];%电压初始行补220
 busI=[0;busI_ori];%电流初始行补0
 
 t0=1;%初始时间
