@@ -25,17 +25,20 @@ bus=all2Data.buscell;%获取总线每步数据
 
 getFingerprint(isGetFingerprint ,wipeOutData,fan,miphone,monitor,mipad,lamp,solderingIron )
     A=load('A.mat');%获取指纹，使用指纹矩阵A.A
-    
+    Aaa=load('A.mat');
+    A=A.A';
+[y1,ps] = mapminmax(A,0,1);
+A=y1';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 busChoice=4;%选择第几组bus
 busP_ori=bus{1,busChoice}{1,1};%原始功率数据
 busPF_ori=bus{1,busChoice}{1,2};%原始功率因子数据
-busU_ori=bus{1,busChoice}{1,3}/10;%原始电压
+busU_ori=bus{1,busChoice}{1,3};%原始电压
 busI_ori=bus{1,busChoice}{1,4};%原始电流
 Plength=length(busP_ori);%数据个数或是相对时间
 busP=[0;busP_ori];%功率初始行补0
-busPF=[1;busPF_ori];%功率因子初始行补1
-busU=[220;busU_ori];%电压初始行补220
+busPF=[1000;busPF_ori];%功率因子初始行补1
+busU=[2200;busU_ori];%电压初始行补2200
 busI=[0;busI_ori];%电流初始行补0
 
 
@@ -55,7 +58,11 @@ equipmentNum=0;%总线上所挂载的设备数
       busResultI(i)=busI(i+1,1)-busI(i,1);
       
       if(busResultP(i)>busP_threshold_P)
+          sp(statusValue)=busResultP(i);
+          spf(statusValue)=busResultPF(i);
+          si(statusValue)=busResultI(i);
           equipmentNum=equipmentNum+1;
+         % B(statusValue,3)=[busResultP(i),busResultPF(i),busResultI(i)];
           t1=i;
 %%%%%%%%%%%%%均值%%%%%%%%%%%%%%%%%%%
           P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
@@ -82,7 +89,11 @@ equipmentNum=0;%总线上所挂载的设备数
       end
       
       if(busResultP(i)<busP_threshold_N)
+          sp(statusValue)=-busResultP(i);
+          spf(statusValue)=-busResultPF(i);
+          si(statusValue)=-busResultI(i);
           equipmentNum=equipmentNum-1;
+        %  B(statusValue,3)=[busResultP(i),busResultPF(i),busResultI(i)];
           t1=i;
           P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
           PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
@@ -100,15 +111,19 @@ equipmentNum=0;%总线上所挂载的设备数
           busP_std(statusValue)=std(busP_ori(t0:t1-1,1));
           busPF_std(statusValue)=std(busPF_ori(t0:t1-1,1));
           busI_std(statusValue)=std(busI_ori(t0:t1-1,1));
-          
+         
           fprintf('busResult=%f,  i=%d,  equipmentNum=%d\n',busResultP(i),i,equipmentNum);
-          fprintf('P_recog=%f，PF_recog=%f,U_recog=%f，I_recog=%f\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
+          fprintf('P_recog=%f，PF_recog=%f,U_recog=%f，I_recog=%f\n\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
           t0=t1;
-          statusValue=statusValue+1;
+           statusValue=statusValue+1;
       end
       
       if(i==Plength)
+          sp(statusValue)=-busResultP(i);
+          spf(statusValue)=-busResultPF(i);
+          si(statusValue)=-busResultI(i);
            equipmentNum=equipmentNum-1;
+           %B(statusValue,3)=[busResultP(i),busResultPF(i),busResultI(i)];
            t1=i;
            P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
            PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
@@ -137,25 +152,28 @@ fprintf('状态改变数：statusValue=%d,电压最大值=%fV，最小值=%fV，(最大值-最小值)=
 fprintf('\n');
  %%%%%%%%%%%%%获取原始待测矩阵B%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%行=是待测状态数，列=是待测状态的特征%%%%%%%%%%%%%
-P_recog=P_recog';
-PF_recog= PF_recog';
-I_recog=I_recog';
- B=[P_recog,PF_recog,I_recog];%待测数据矩阵
+
+  B=[sp',spf',si'];%待测数据矩阵
+  
+ Bbb=B;
+ %y2 = mapminmax('apply',B',ps);
+ [y2,ps1] = mapminmax(B',0,1);
+ B=y2';
 %%%%%%%%%%%%求B到A的欧式距离%%%%%%%%%%%%%%%%%%%%
-[rowA,colA]=size(A.A);
+[rowA,colA]=size(A);
 [rowB,colB]=size(B);
     if(colA==colB)
        
           for i=1:rowB
               for j=1:rowA
-                        s(i,j)=sum((B(i,1)-A.A(j,1))^2+(B(i,2)-A.A(j,2))^2+(B(i,3)-A.A(j,3))^2) ;
+                        s(i,j)=sqrt(0*(B(i,1)-A(j,1))^2+0*(B(i,2)-A(j,2))^2+1*(B(i,3)-A(j,3))^2) ;
               end  
           end
         
     else
         fprintf('指纹矩阵和待测数据矩阵特征数不符\n');
     end
-
+similar=(1./(1+s)*100);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fprintf('Main2 function fun over!\n');

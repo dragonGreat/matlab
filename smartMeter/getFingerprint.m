@@ -3,7 +3,7 @@ function getFingerprint(isGetFingerprint ,wipeOutData,fan,miphone,monitor,mipad,
        if(isGetFingerprint==1)
             fprintf('go get the fingerprint!\n');
                 s0_0_p=0;
-                s0_0_pf=1;
+                s0_0_pf=1000;
                 s0_0_i=0;
  %%%%%%%%%%s1-fan1%%%%%%%%%%%%%%%%%%%%%%
         [aveValue,varValue,maxValue,minValue] = getTheDataFeature(fan{1,1},wipeOutData);
@@ -56,7 +56,7 @@ function getFingerprint(isGetFingerprint ,wipeOutData,fan,miphone,monitor,mipad,
           s5_monitor_p,s5_monitor_pf,s5_monitor_i;
           s6_mipad_p,s6_mipad_pf,s6_mipad_i;
           s7_lamp_p,s7_lamp_pf,s7_lamp_i;
-           s8_solderingIron_p,s8_solderingIron_pf,s8_solderingIron_i;
+%           s8_solderingIron_p,s8_solderingIron_pf,s8_solderingIron_i;
           ];
       save A.mat A
         end
