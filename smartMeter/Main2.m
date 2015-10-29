@@ -8,6 +8,7 @@ clear;
 clc;
 fprintf('Main2  function lets go ! ... ...\n');
 wipeOutData=0;%需要删除的数据
+isGetFingerprint=1;%是否需要获取用电指纹数据
 isGetDataToMat2=0;%0不更新all2.mat中数据，1再次更新all2.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
         getDataToMat2(isGetDataToMat2,wipeOutData);%将数据从excel中转到mat中
         all2Data=load('all2.mat');
@@ -18,7 +19,13 @@ monitor=all2Data.monitorcell;%获取显示器每步数据
 mipad=all2Data.mipadcell;%获取米平板每步数据
 lamp=all2Data.lampcell;%获取台灯每步数据
 solderingIron=all2Data.solderingIroncell;%获取电烙铁每步数据
+
 bus=all2Data.buscell;%获取总线每步数据
+%%%%%%%%%%%%指纹建模A%%%%%%%%%%%%%%%%%%%%
+
+getFingerprint(isGetFingerprint ,wipeOutData,fan,miphone,monitor,mipad,lamp,solderingIron )
+    A=load('A.mat');%获取指纹，使用指纹矩阵A.A
+    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 busChoice=4;%选择第几组bus
 busP_ori=bus{1,busChoice}{1,1};%原始功率数据
@@ -128,10 +135,27 @@ end
 [U_min,~]=min(busU_ori);
 fprintf('状态改变数：statusValue=%d,电压最大值=%fV，最小值=%fV，(最大值-最小值)=%fV\n',statusValue,U_max,U_min,U_max-U_min);  
 fprintf('\n');
- 
- 
- 
- 
+ %%%%%%%%%%%%%获取原始待测矩阵B%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%行=是待测状态数，列=是待测状态的特征%%%%%%%%%%%%%
+P_recog=P_recog';
+PF_recog= PF_recog';
+I_recog=I_recog';
+ B=[P_recog,PF_recog,I_recog];%待测数据矩阵
+%%%%%%%%%%%%求B到A的欧式距离%%%%%%%%%%%%%%%%%%%%
+[rowA,colA]=size(A.A);
+[rowB,colB]=size(B);
+    if(colA==colB)
+       
+          for i=1:rowB
+              for j=1:rowA
+                        s(i,j)=sum((B(i,1)-A.A(j,1))^2+(B(i,2)-A.A(j,2))^2+(B(i,3)-A.A(j,3))^2) ;
+              end  
+          end
+        
+    else
+        fprintf('指纹矩阵和待测数据矩阵特征数不符\n');
+    end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fprintf('Main2 function fun over!\n');
@@ -149,4 +173,14 @@ fprintf('Main2 function fun over!\n');
 %                             　 --            点划线
 
 
+% 
+% A.A=[1,2,3;1,2,3;3,2,1];
+% B=[1,1,1;2,2,2];
+% [rowA,colA]=size(A.A);
+% [rowB,colB]=size(B);
+%           for i=1:rowB
+%               for j=1:rowA
+%                            s(i,j)=sum((B(i,1)-A.A(j,1))^2+(B(i,2)-A.A(j,2))^2+(B(i,3)-A.A(j,3))^2)  
+%               end  
+%           end
 

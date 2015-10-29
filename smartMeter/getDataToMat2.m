@@ -2,7 +2,7 @@ function getDataToMat2(flag ,wipeOutData)
 %%第二种将数据提取出来的方式
 fprintf('go getDataToMat2 function!\n');
 
-isPlot=1;%是否画图
+isPlot=0;%是否画图
 
 fan=1;%画图标号，必须要,用来区分不同的类别
 fanStep=3;%fan一共测试了几步数据，这里是3步
@@ -73,7 +73,7 @@ if(flag==1)
                     fancell{fanNum}={dataP,dataPF,dataU,dataI};                                     
                       if(isPlot)                                
                                   [aveValue,varValue,maxValue,minValue] = getTheDataFeature(fancell{1,i},wipeOutData);
-                                  %modelFancell{fanNum}={[aveValue',varValue',maxValue',minValue']};
+                                  %modelFancell(fanNum)=[aveValue',varValue',maxValue',minValue']
                                  plotMulFigureSmartMeter(pAddPf,dataP,dataNumP,dataPF,dataNumPF,dataU,dataNumU,dataI,dataNumI,fan*100+i*10+j,aveValue,varValue,maxValue,minValue);   
                       end
                       fanNum=fanNum+1;
@@ -223,7 +223,7 @@ if(flag==1)
             
              save all2.mat fancell miphonecell monitorcell mipadcell lampcell solderingIroncell buscell
             % save model.mat modelFancell modelMiphonecell modelMonitorcell modelMipadcell modelLampcell modelSolderingIroncell modelBuscell
-             fprintf('in getDataToMat2 function , save data to all.mat success!\n')
+             fprintf('in getDataToMat2 function , save data to all2.mat success!\n')
 else
     fprintf('in getDataToMat2 function ,not save data to all.mat\n')
 end
