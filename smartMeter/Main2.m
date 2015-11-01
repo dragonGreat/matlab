@@ -9,7 +9,7 @@ clc;
 fprintf('Main2  function lets go ! ... ...\n');
 wipeOutData=0;%需要删除的数据
 isGetFingerprint=1;%是否需要获取用电指纹数据
-isGetDataToMat2=0;%0不更新all2.mat中数据，1再次更新all2.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
+isGetDataToMat2=1;%0不更新all2.mat中数据，1再次更新all2.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
         getDataToMat2(isGetDataToMat2,wipeOutData);%将数据从excel中转到mat中
         all2Data=load('all2.mat');
 %%%%%%%%%%%%%每种用电器数据获取%%%%%%%%%%%%%%%%%%%
