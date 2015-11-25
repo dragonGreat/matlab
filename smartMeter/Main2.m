@@ -8,10 +8,10 @@ clear;
 clc;
 fprintf('Main2  function lets go ! ... ...\n');
 wipeOutData=0;%需要删除的数据
-isGetFingerprint=1;%是否需要获取用电指纹数据
-isGetDataToMat2=1;%0不更新all2.mat中数据，1再次更新all2.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
+isGetFingerprint=0;%是否需要获取用电指纹数据
+isGetDataToMat2=0;%0不更新all2.mat中数据，1再次更新all2.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
         getDataToMat2(isGetDataToMat2,wipeOutData);%将数据从excel中转到mat中
-        all2Data=load('all2.mat');
+        all2Data=load('all2.mat');%数据的获取
 %%%%%%%%%%%%%每种用电器数据获取%%%%%%%%%%%%%%%%%%%
 fan=all2Data.fancell;%获取电扇每步数据
 miphone=all2Data.miphonecell;%获取手机每步数据
@@ -25,7 +25,6 @@ bus=all2Data.buscell;%获取总线每步数据
 
 getFingerprint(isGetFingerprint ,wipeOutData,fan,miphone,monitor,mipad,lamp,solderingIron )
     A=load('A.mat');%获取指纹，使用指纹矩阵A.A
-    Aaa=load('A.mat');
     A=A.A';
 [y1,ps] = mapminmax(A,0,1);
 A=y1';
@@ -118,7 +117,7 @@ equipmentNum=0;%总线上所挂载的设备数
            statusValue=statusValue+1;
       end
       
-      if(i==Plength)
+      if(i==Plength)%最后一个数据时
           sp(statusValue)=-busResultP(i);
           spf(statusValue)=-busResultPF(i);
           si(statusValue)=-busResultI(i);

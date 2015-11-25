@@ -60,19 +60,19 @@ pAddPf=1;%为0时只画一副图，为1时画多个图 ，默认1
 if(flag==1)
             for i=1:fanStep%read fan data
                  for j=1:fanDataGetNum
-                       pathP=['\sourceData2\fan',num2str(i),'P',num2str(j),'.xlsx'];
-                       pathPF=['\sourceData2\fan',num2str(i),'PF',num2str(j),'.xlsx'];
-                       pathU=['\sourceData2\fan',num2str(i),'U',num2str(j),'.xlsx'];
-                       pathI=['\sourceData2\fan',num2str(i),'I',num2str(j),'.xlsx'];
+                       pathP=['\sourceData2\fan',num2str(i),'P',num2str(j),'.xlsx'];%获取路径
+                       pathPF=['\sourceData2\fan',num2str(i),'PF',num2str(j),'.xlsx'];%获取路径
+                       pathU=['\sourceData2\fan',num2str(i),'U',num2str(j),'.xlsx'];%获取路径
+                       pathI=['\sourceData2\fan',num2str(i),'I',num2str(j),'.xlsx'];%获取路径
 
-                       [dataP,dataNumP]= readExcelData(pathP);
-                       [dataPF,dataNumPF]= readExcelData(pathPF);
-                       [dataU,dataNumU]= readExcelData(pathU);
-                       [dataI,dataNumI]= readExcelData(pathI);
+                       [dataP,dataNumP]= readExcelData(pathP);%读取数据
+                       [dataPF,dataNumPF]= readExcelData(pathPF);%读取数据
+                       [dataU,dataNumU]= readExcelData(pathU);%读取数据
+                       [dataI,dataNumI]= readExcelData(pathI);%读取数据
 
-                    fancell{fanNum}={dataP,dataPF,dataU,dataI};                                     
-                      if(isPlot)                                
-                                  [aveValue,varValue,maxValue,minValue] = getTheDataFeature(fancell{1,i},wipeOutData);
+                    fancell{fanNum}={dataP,dataPF,dataU,dataI};  %存数据                                   
+                      if(isPlot)        %是否要画图                        
+                                  [aveValue,varValue,maxValue,minValue] = getTheDataFeature(fancell{1,i},wipeOutData);%计算统计数值
                                   %modelFancell(fanNum)=[aveValue',varValue',maxValue',minValue']
                                  plotMulFigureSmartMeter(pAddPf,dataP,dataNumP,dataPF,dataNumPF,dataU,dataNumU,dataI,dataNumI,fan*100+i*10+j,aveValue,varValue,maxValue,minValue);   
                       end
