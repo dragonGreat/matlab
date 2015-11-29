@@ -2,7 +2,7 @@ function getDataToMat3(flag ,wipeOutData)
 %%第二种将数据提取出来的方式
 fprintf('go getDataToMat3 function!\n');
 
-isPlot=1;%是否画图
+isPlot=0;%是否画图
 
 fan=1;%画图标号，必须要,用来区分不同的类别
 fanStep=4;%fan一共测试了几步数据，这里是3步
