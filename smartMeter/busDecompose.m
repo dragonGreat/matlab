@@ -1,7 +1,7 @@
 function [testData ,statusValue]= busDecompose( bus,busChoice)
+
 fprintf('GO  busDecompose ......\n');
 %%%%%%%%%%%%%%bus数据处理%%%%%%%%%%%%%%%%
-
 busP_ori=bus{1,busChoice}{1,1};%原始功率数据
 busPF_ori=bus{1,busChoice}{1,2};%原始功率因子数据
 busU_ori=bus{1,busChoice}{1,3};%原始电压
@@ -42,10 +42,10 @@ fprintf('\n');
          
           if(statusValue==1)
               preMeanStatus=0;
-             testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
-          else
-              preMeanStatus=P_recog(statusValue-1);
               testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
+          else
+             preMeanStatus=abs(P_recog(statusValue-1));     
+             testData{statusValue}=abs(busP_ori(t0:t1-1,1)-preMeanStatus);
           end
 %%%%%%%%%%%%%最大值%%%%%%%%%%%%%%%%%%%          
 %           [busP_max(statusValue),~]=max(busP_ori(t0:t1-1,1));
@@ -79,10 +79,11 @@ fprintf('\n');
           I_recog(statusValue)=mean(busI_ori(t0:t1-1,1));
           if(statusValue==1)
               preMeanStatus=0;
-             testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
+              testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
           else
-              preMeanStatus=P_recog(statusValue-1);
-              testData{statusValue}=-busP_ori(t0:t1-1,1)-preMeanStatus;
+
+             preMeanStatus=abs(P_recog(statusValue-1));
+             testData{statusValue}=abs(busP_ori(t0:t1-1,1)-preMeanStatus);
           end
 %            [busP_max(statusValue),~]=max(busP_ori(t0:t1-1,1));
 %           [busPF_max(statusValue),~]=max(busPF_ori(t0:t1-1,1));
@@ -102,24 +103,24 @@ fprintf('\n');
           statusValue=statusValue+1;
       end
       
-      if(i==Plength)%最后一个数据时
-%           sp(statusValue)=-busResultP(i);
-%           spf(statusValue)=-busResultPF(i);
-%           si(statusValue)=-busResultI(i);
-           equipmentNum=equipmentNum-1;
-           %B(statusValue,3)=[busResultP(i),busResultPF(i),busResultI(i)];
-           t1=i;
-           P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
-           PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
-           U_recog(statusValue)=mean(busU_ori(t0:t1-1,1));
-           I_recog(statusValue)=mean(busI_ori(t0:t1-1,1));
-          if(statusValue==1)
-              preMeanStatus=0;
-             testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
-          else
-              preMeanStatus=P_recog(statusValue-1);
-              testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
-          end
+%       if(i==Plength)%最后一个数据时
+% %           sp(statusValue)=-busResultP(i);
+% %           spf(statusValue)=-busResultPF(i);
+% %           si(statusValue)=-busResultI(i);
+%            equipmentNum=equipmentNum-1;
+%            %B(statusValue,3)=[busResultP(i),busResultPF(i),busResultI(i)];
+%            t1=i;
+%            P_recog(statusValue)=mean(busP_ori(t0:t1-1,1));
+%            PF_recog(statusValue)=mean(busPF_ori(t0:t1-1,1));
+%            U_recog(statusValue)=mean(busU_ori(t0:t1-1,1));
+%            I_recog(statusValue)=mean(busI_ori(t0:t1-1,1));
+%           if(statusValue==1)
+%               preMeanStatus=0;
+%              testData{statusValue}=busP_ori(t0:t1-1,1)-preMeanStatus;
+%           else
+%               preMeanStatus=abs(P_recog(statusValue-1));
+%               testData{statusValue}=abs(busP_ori(t0:t1-1,1)-preMeanStatus);
+%           end
 %           [busP_max(statusValue),~]=max(busP_ori(t0:t1-1,1));
 %           [busPF_max(statusValue),~]=max(busPF_ori(t0:t1-1,1));
 %           [busI_max(statusValue),~]=max(busI_ori(t0:t1-1,1));
@@ -132,9 +133,9 @@ fprintf('\n');
 %           busPF_std(statusValue)=std(busPF_ori(t0:t1-1,1));
 %           busI_std(statusValue)=std(busI_ori(t0:t1-1,1));
           
-           fprintf('busResult=%f,  i=%d,  equipmentNum=%d\n',busResultP(i),i,equipmentNum);
-           fprintf('均值P=%f，均值PF=%f,均值U=%f，均值I=%f\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
-      end
+%           fprintf('busResult=%f,  i=%d,  equipmentNum=%d\n',busResultP(i),i,equipmentNum);
+ %          fprintf('均值P=%f，均值PF=%f,均值U=%f，均值I=%f\n',P_recog(statusValue),PF_recog(statusValue),U_recog(statusValue),I_recog(statusValue));
+%      end
 end
 [U_max,~]=max(busU_ori);
 [U_min,~]=min(busU_ori);

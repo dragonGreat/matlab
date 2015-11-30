@@ -1,13 +1,14 @@
 %%1.数据获取顺序 'P','PF','U','I'
 %%%fan,hairdryer,kettle,mipad,pc
-%fan1-4:a,b,c,d 
-%hairdryer1-3:efg
-%kettle:h,mipad:i,pc:j
+%fan1-4:b,c,d ,e
+%hairdryer1-3:fgh
+%kettle:i,mipad:j,pc:k
+%初始状态s0=a
 close all;
 clear;
 clc;
 fprintf('Main3  function lets go ! ... ...\n');
-wipeOutData=0;%需要删除的数据
+wipeOutData=1;%需要删除的数据
 isGetFingerprint=0;%是否需要获取用电指纹数据
 isGetDataToMat3=0;%0不更新all2.mat中数据，1再次更新all2.mat中的数据 ，在没有新数据的情况下只要在第一次使用时赋1,默认为0
         getDataToMat3(isGetDataToMat3,wipeOutData);%将数据从excel中转到mat中
@@ -20,13 +21,13 @@ mipad=all3Data.mipadcell;%获取米平板每步数据
 pc=all3Data.pccell;%获取台灯每步数据
 bus=all3Data.buscell;%获取总线每步数据
 %%%%%%%%%%%%数据清洗%%%%%%%%%%%%%%%%%%%%
-busChoice=1;
+busChoice=4;
 [trainData,labels]=GetDataToTrain(fan,hairdryer,kettle,mipad,pc,wipeOutData);
 [testData1,statusChanceNum]=busDecompose(bus,busChoice);
 
-for i=1:statusChanceNum
+for i=1:statusChanceNum-1
     testData=testData1{1,i};
-    targetL=kNN(trainData,labels,testData,5);
+    targetL=kNN(trainData,labels,testData,3);
     fprintf('the target is :%s\n',targetL);
 end
 
@@ -34,7 +35,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-fprintf('Main2 function fun over!\n');
+fprintf('Main3 function fun over!\n');
 
 
 

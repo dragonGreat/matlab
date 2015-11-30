@@ -54,8 +54,8 @@ function [trainData,labels]=getFingerprint3(isGetFingerprint ,wipeOutData,fan,ha
                 s10_pc_pf=aveValue(1,2);%功率因子
                 s10_pc_i=aveValue(1,4);%电流 
 %%%%%%%%%%%%构造训练数据和标签%%%%%%%%%%%%%%%%%%%%
-        trainData_1=[ s1_fan1_p;s2_fan2_p;s3_fan3_p;s4_fan4_p;s5_hairdryer1_p;s6_hairdryer2_p;s7_hairdryer3_p;s8_kettle_p;s9_mipad_p;s10_pc_p]; 
-        labels_1=['a','b','c','d','e','f','g','h','i','j']';
+        trainData_1=[ 0,s1_fan1_p;s2_fan2_p;s3_fan3_p;s4_fan4_p;s5_hairdryer1_p;s6_hairdryer2_p;s7_hairdryer3_p;s8_kettle_p;s9_mipad_p;s10_pc_p]; 
+        labels_1=['z','a','b','c','d','e','f','g','h','i','j']';
         trainData=trainData_1;
         labels=labels_1;
        end
