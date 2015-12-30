@@ -1,5 +1,8 @@
 # _*_ coding:utf-8 _*_
 # __author__ = 'dragon'
+'''
+ excel data read
+'''
 import xlrd
 import scipy.io as sio
 
@@ -13,7 +16,7 @@ totalDev = [
 ]
 
 
-def readExcel(totalDev, flagSv2mat=0):
+def readExcel(totalDev=totalDev, flagSv2mat=0):
     allData = []
     j = 0  # 指定数据插入的索引位置
     for totalDevNum in range(len(totalDev) / 2):  # 轮询用电器的数量len(totalDev) / 2
@@ -56,11 +59,11 @@ def readExcel(totalDev, flagSv2mat=0):
     if 1 == flagSv2mat:
         # 只有在有新数据加入的时候才存入MAT，默认不存flagSv2mat=0
         print ('save allData to mat')
-        sio.savemat('allData.mat', {'allData': allData})
+        sio.savemat('in readExcel ,allData.mat', {'allData': allData})
     else:
-        print ("not save allData to mat")
+        print ("in readExcel ,not save allData to mat")
     return allData
 
 
 if __name__ == '__main__':
-    all=readExcel(totalDev)
+    all=readExcel()
