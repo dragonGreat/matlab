@@ -58,10 +58,10 @@ def readExcel(totalDev=totalDev, flagSv2mat=0):
                 j = j + 1
     if 1 == flagSv2mat:
         # 只有在有新数据加入的时候才存入MAT，默认不存flagSv2mat=0
-        print ('save allData to mat')
+        print ('save allData to mat\n')
         sio.savemat('in readExcel ,allData.mat', {'allData': allData})
     else:
-        print ("in readExcel ,not save allData to mat")
+        print ("in readExcel ,not save allData to mat\n")
     return allData
 
 

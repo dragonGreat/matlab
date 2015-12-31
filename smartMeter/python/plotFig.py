@@ -16,7 +16,7 @@ data = readExcel.readExcel()  # 调用默认的数据
 
 
 def plotFigAll(data=data, showOrNot=0, isChinese=0, saveFig=0):
-    print len(data)
+    #print len(data)
     for eachDevNum in range(len(data)/2):
         plotFigSig(data[2 * eachDevNum], data[2 * eachDevNum + 1], showOrNot, saveFig)
         plotFigMul(data[2 * eachDevNum], data[2 * eachDevNum + 1], showOrNot, saveFig)
